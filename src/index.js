@@ -64,19 +64,32 @@ module.exports = function solveSudoku(matrix) {
         if (Array.isArray(arr[y][x])) {
           if (arr[y][x].indexOf(number) !== -1) {
             arr[y][x].splice(arr[y][x].indexOf(number), 1);
+
           }
         }
       }
     });
   }
 
+  function changeSoloArrProbToNumb(arr) {
+    for (let y = 0; y < 9; y++) {
+      for (let x = 0; x < 9; x++) {
+        if (Array.isArray(arr[y][x]) && arr[y][x].length === 1) {
+          arr[y][x] = arr[y][x][0];
+        }
+      }
+    }
+  }
+
   console.log(matrixClone);
   console.log("AFTER STROKES CLEANING #################################");
   changeZeroes(matrixClone)
   deleteImpossProbalitiesByStrokes(matrixClone);
+  changeSoloArrProbToNumb(matrixClone)
   console.log(matrixClone);
   console.log("AFTER COLUMNS CLEANING #################################");
   deleteImpossProbalitiesByColumns(matrixClone);
+  changeSoloArrProbToNumb(matrixClone)
   console.log(matrixClone);
 
   return matrixClone;
